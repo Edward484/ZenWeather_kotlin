@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "374726010258",
+    "project_id": "zenweather-7a9ef",
+    "storage_bucket": "zenweather-7a9ef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374726010258:android:db4c5c80e935adabb48d4b",
+        "android_client_info": {
+          "package_name": "com.eduard.zenweather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374726010258-0ct5p2e6jkr32197jjlu23j8ij9rscr0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eduard.zenweather",
+            "certificate_hash": "967b844e978dfd4b72e056eb5db6eef90fa77481"
+          }
+        },
+        {
+          "client_id": "374726010258-vnm4s2ri5vsb5pdjmi3k4346m9695poe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGojuNzPdVLOKqe9bt-sQ92SvQ2c4T8Pk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374726010258-m28ljjom9tu0s9ohtqn2qudcpehlf9a3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
