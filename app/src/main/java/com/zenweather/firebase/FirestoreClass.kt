@@ -17,17 +17,13 @@ import com.zenweather.activities.SignUpActivity
 import com.zenweather.model.User
 import com.zenweather.utils.Constants
 
-/**
- * A custom class where we will add the operation performed for the firestore database.
- */
+
 class FirestoreClass {
 
     // Create a instance of Firebase Firestore
     private val mFireStore = FirebaseFirestore.getInstance()
 
-    /**
-     * A function to make an entry of the registered user in the firestore database.
-     */
+
     fun registerUser(activity: SignUpActivity, userInfo: User) {
 
         mFireStore.collection(Constants.USERS)
@@ -124,14 +120,10 @@ class FirestoreClass {
 
     }
 
-    /**
-     * A function to SignIn using firebase and get the user details from Firestore Database.
-     */
+
     fun loadUserData(activity: Activity) {
 
-        // Here we pass the collection name from which we wants the data.
         mFireStore.collection(Constants.USERS)
-            // The document id to get the Fields of user.
             .document(getCurrentUserID())
             .get()
             .addOnSuccessListener { document ->
@@ -174,9 +166,7 @@ class FirestoreClass {
             }
     }
 
-    /**
-     * A function to update the user profile data into the database.
-     */
+
     fun updateUserProfileData(activity: MyProfileActivity, userHashMap: HashMap<String, Any>) {
         mFireStore.collection(Constants.USERS) // Collection Name
             .document(getCurrentUserID()) // Document ID
@@ -200,9 +190,7 @@ class FirestoreClass {
             }
     }
 
-    /**
-     * A function for getting the user id of current logged user.
-     */
+
     fun getCurrentUserID(): String {
         // An Instance of currentUser using FirebaseAuth
         val currentUser = FirebaseAuth.getInstance().currentUser

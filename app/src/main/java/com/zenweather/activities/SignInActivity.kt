@@ -26,9 +26,6 @@ class SignInActivity : BaseActivity() {
     private var gsc: GoogleSignInClient? = null
 
 
-    /**
-     * This function is auto created by Android when the Activity Class is created.
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         //This call the parent constructor
         super.onCreate(savedInstanceState)
@@ -99,9 +96,7 @@ class SignInActivity : BaseActivity() {
         FirestoreClass().registerGoogleUser(this@SignInActivity, user)
     }
 
-    /**
-     * A function for actionBar Setup.
-     */
+
     private fun setupActionBar() {
 
         setSupportActionBar(toolbar_sign_in_activity)
@@ -115,9 +110,6 @@ class SignInActivity : BaseActivity() {
         toolbar_sign_in_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
-    /**
-     * A function for Sign-In using the registered user using the email and password.
-     */
     private fun signInRegisteredUser() {
         // Here we get the text from editText and trim the space
         val email: String = et_email.text.toString().trim { it <= ' ' }
@@ -144,9 +136,6 @@ class SignInActivity : BaseActivity() {
         }
     }
 
-    /**
-     * A function to validate the entries of a user.
-     */
     private fun validateForm(email: String, password: String): Boolean {
         return if (TextUtils.isEmpty(email)) {
             showErrorSnackBar("Please enter email.")
@@ -159,9 +148,7 @@ class SignInActivity : BaseActivity() {
         }
     }
 
-    /**
-     * A function to get the user details from the firestore database after authentication.
-     */
+
     fun signInSuccess(user: User) {
 
         hideProgressDialog()

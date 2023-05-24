@@ -48,9 +48,7 @@ class MyProfileActivity : BaseActivity() {
             ) {
                 showImageChooser()
             } else {
-                /*Requests permissions to be granted to this application. These permissions
-                 must be requested in your manifest, they should not be granted to your app,
-                 and they should have protection level*/
+
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
@@ -86,7 +84,6 @@ class MyProfileActivity : BaseActivity() {
             mSelectedImageFileUri = data.data!!
 
             try {
-                // Load the user image in the ImageView.
                 Glide
                     .with(this@MyProfileActivity)
                     .load(Uri.parse(mSelectedImageFileUri.toString())) // URI of the image
@@ -118,13 +115,7 @@ class MyProfileActivity : BaseActivity() {
         }
     }
 
-    /**
-     * This function will identify the result of runtime permission after the user allows or deny permission based on the unique code.
-     *
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
-     */
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -146,9 +137,7 @@ class MyProfileActivity : BaseActivity() {
         }
     }
 
-    /**
-     * A function to setup action bar
-     */
+
     private fun setupActionBar() {
 
         setSupportActionBar(toolbar_my_profile_activity)
@@ -163,9 +152,7 @@ class MyProfileActivity : BaseActivity() {
         toolbar_my_profile_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
-    /**
-     * A function to set the existing details in UI.
-     */
+
     fun setUserDataInUI(user: User) {
 
         // Initialize the user details variable
@@ -185,9 +172,7 @@ class MyProfileActivity : BaseActivity() {
         }
     }
 
-    /**
-     * A function for user profile image selection from phone storage.
-     */
+
     private fun showImageChooser() {
         // An intent for launching the image selection of phone storage.
         val galleryIntent = Intent(
@@ -205,9 +190,7 @@ class MyProfileActivity : BaseActivity() {
         }
     }
 
-    /**
-     * A function to upload the selected user image to firebase cloud storage.
-     */
+
     private fun uploadUserImage() {
 
         showProgressDialog(resources.getString(R.string.please_wait))
@@ -224,21 +207,17 @@ class MyProfileActivity : BaseActivity() {
             //adding the file to reference
             sRef.putFile(mSelectedImageFileUri!!)
                 .addOnSuccessListener { taskSnapshot ->
-                    // The image upload is success
                     Log.e(
                         "Firebase Image URL",
                         taskSnapshot.metadata!!.reference!!.downloadUrl.toString()
                     )
 
-                    // Get the downloadable url from the task snapshot
                     taskSnapshot.metadata!!.reference!!.downloadUrl
                         .addOnSuccessListener { uri ->
                             Log.e("Downloadable Image URL", uri.toString())
 
-                            // assign the image url to the variable.
                             mProfileImageURL = uri.toString()
 
-                            // Call a function to update user details in the database.
                             updateUserProfileData()
                         }
                 }
@@ -254,25 +233,13 @@ class MyProfileActivity : BaseActivity() {
         }
     }
 
-    /**
-     * A function to get the extension of selected image.
-     */
+
     private fun getFileExtension(uri: Uri?): String? {
-        /*
-         * MimeTypeMap: Two-way map that maps MIME-types to file extensions and vice versa.
-         *
-         * getSingleton(): Get the singleton instance of MimeTypeMap.
-         *
-         * getExtensionFromMimeType: Return the registered extension for the given MIME type.
-         *
-         * contentResolver.getType: Return the MIME type of the given content URL.
-         */
+
         return MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri!!))
     }
 
-    /**
-     * A function to update the user profile details into the database.
-     */
+
     private fun updateUserProfileData() {
 
         val userHashMap = HashMap<String, Any>()
@@ -289,27 +256,18 @@ class MyProfileActivity : BaseActivity() {
             userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
         }
 
-        // Update the data in the database.
         FirestoreClass().updateUserProfileData(this@MyProfileActivity, userHashMap)
     }
 
-    /**
-     * A function to notify the user profile is updated successfully.
-     */
+
     fun profileUpdateSuccess() {
 
         hideProgressDialog()
-
-        // TODO (Step 3: Send the success result to the Base Activity.)
-        // START
         setResult(Activity.RESULT_OK)
-        // END
         finish()
     }
 
-    /**
-     * A companion object to declare the constants.
-     */
+
     companion object {
         //A unique code for asking the Read Storage Permission using this we will be check and identify in the method onRequestPermissionsResult
         private const val READ_STORAGE_PERMISSION_CODE = 1

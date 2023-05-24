@@ -8,4 +8,6 @@
     <color name="secondary_text_color">#8D939C</color>
 
     <color name="snackbar_error_color">#DF3F24</color>
+    <color name="main_screen_content_background_color">#EFEFEF</color>
+    <color name="divider_background">#e0e0e0</color>
 </resources>

@@ -1,12 +1,11 @@
 package com.zenweather.activities
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.GravityCompat
@@ -19,11 +18,10 @@ import com.zenweather.model.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
+
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    /**
-     * This function is auto created by Android when the Activity Class is created.
-     */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         //This call the parent constructor
         super.onCreate(savedInstanceState)
@@ -31,8 +29,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         // This is used to align the xml view to this class
         setContentView(R.layout.activity_main)
 
-        val textView: TextView = findViewById(R.id.tv_user_name) as TextView
-        textView.text = "haha"
 
         setupActionBar()
 
@@ -42,6 +38,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         // Get the current logged in user details.
         FirestoreClass().loadUserData(this@MainActivity)
+
+
+
     }
 
     override fun onBackPressed() {
@@ -57,10 +56,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         when (menuItem.itemId) {
             R.id.nav_my_profile -> {
 
-                // TODO (Step 2: Launch the my profile activity for Result.)
-                // START
+
                 startActivityForResult(Intent(this@MainActivity, MyProfileActivity::class.java), MY_PROFILE_REQUEST_CODE)
-                // END
             }
 
             R.id.nav_sign_out -> {
@@ -78,8 +75,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         return true
     }
 
-    // TODO (Step 4: Add the onActivityResult function and check the result of the activity for which we expect the result.)
-    // START
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -88,15 +84,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         ) {
             // Get the user updated details.
             FirestoreClass().loadUserData(this@MainActivity)
+
         } else {
             Log.e("Cancelled", "Cancelled")
         }
     }
-    // END
 
-    /**
-     * A function to setup action bar
-     */
+
     private fun setupActionBar() {
 
         setSupportActionBar(toolbar_main_activity)
@@ -107,9 +101,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
-    /**
-     * A function for opening and closing the Navigation Drawer.
-     */
+
     private fun toggleDrawer() {
 
 
@@ -120,17 +112,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
-    /**
-     * A function to get the current user details from firebase.
-     */
+
     fun updateNavigationUserDetails(user: User) {
-        // The instance of the header view of the navigation view.
         val headerView = nav_view.getHeaderView(0)
 
-        // The instance of the user image of the navigation view.
         val navUserImage = headerView.findViewById<ImageView>(R.id.iv_user_image)
 
-        // Load the user image in the ImageView.
         Glide
                 .with(this@MainActivity)
                 .load(user.image) // URL of the image
@@ -138,23 +125,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 .placeholder(R.drawable.ic_user_place_holder) // A default place holder
                 .into(navUserImage) // the view in which the image will be loaded.
 
-        // The instance of the user name TextView of the navigation view.
         val navUsername = headerView.findViewById<TextView>(R.id.tv_username)
         // Set the user name
         navUsername.text = user.name
     }
 
-    // TODO (Step 1: Create a companion object and a constant variable for My profile Screen result.)
-    // START
-    /**
-     * A companion object to declare the constants.
-     */
     companion object {
         //A unique code for starting the activity for result
         const val MY_PROFILE_REQUEST_CODE: Int = 11
     }
-    // END
 
-    //weather
 
 }
